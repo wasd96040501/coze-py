@@ -58,29 +58,6 @@ class FilesClient(object):
         self._requester = requester
 
     """
-    View the details of uploaded files.
-    :param file_id: Uploaded file ID.
-    :return: 
-    """
-
-    def retrieve(
-        self,
-        *,
-        file_id: str,
-    ) -> File:
-        url = f"{self._base_url}/v1/files/retrieve"
-        params = {
-            "file_id": file_id,
-        }
-        return self._requester.request(
-            "GET",
-            url,
-            False,
-            cast=File,
-            params=params,
-        )
-
-    """
     Upload a file to the Coze platform.
 **API description**
 Local files cannot be directly used in messages. Before creating a message or conversation, you need to call this API to upload local files to Coze. After uploading the file, you can directly use it in multimodal content by specifying the `file_id` in the message. For usage instructions, see [Create a conversation](https://www.coze.cn/docs/developer_guides/create_conversation).
@@ -117,6 +94,29 @@ Files uploaded using the API expire after 3 months.
             files=files,
         )
 
+    """
+    View the details of uploaded files.
+    :param file_id: Uploaded file ID.
+    :return: 
+    """
+
+    def retrieve(
+        self,
+        *,
+        file_id: str,
+    ) -> File:
+        url = f"{self._base_url}/v1/files/retrieve"
+        params = {
+            "file_id": file_id,
+        }
+        return self._requester.request(
+            "GET",
+            url,
+            False,
+            cast=File,
+            params=params,
+        )
+
 
 """
 Async API Client for files endpoints
@@ -128,29 +128,6 @@ class AsyncFilesClient(object):
         self._base_url = remove_url_trailing_slash(base_url)
         self._auth = auth
         self._requester = requester
-
-    """
-    View the details of uploaded files.
-    :param file_id: Uploaded file ID.
-    :return: 
-    """
-
-    async def retrieve(
-        self,
-        *,
-        file_id: str,
-    ) -> File:
-        url = f"{self._base_url}/v1/files/retrieve"
-        params = {
-            "file_id": file_id,
-        }
-        return await self._requester.arequest(
-            "GET",
-            url,
-            False,
-            cast=File,
-            params=params,
-        )
 
     """
     Upload a file to the Coze platform.
@@ -187,4 +164,27 @@ Files uploaded using the API expire after 3 months.
             False,
             cast=File,
             files=files,
+        )
+
+    """
+    View the details of uploaded files.
+    :param file_id: Uploaded file ID.
+    :return: 
+    """
+
+    async def retrieve(
+        self,
+        *,
+        file_id: str,
+    ) -> File:
+        url = f"{self._base_url}/v1/files/retrieve"
+        params = {
+            "file_id": file_id,
+        }
+        return await self._requester.arequest(
+            "GET",
+            url,
+            False,
+            cast=File,
+            params=params,
         )
