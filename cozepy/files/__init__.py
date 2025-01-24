@@ -33,13 +33,13 @@ def _try_fix_file(file: FileTypes) -> FileTypes:
 class File(CozeModel):
     """Uploaded file ID."""
 
-    id: Optional[str]
+    id: str
     """Total bytes of the file."""
-    bytes: Optional[int]
+    bytes: Optional[int] = None
     """The upload time of the file, formatted as a 10-digit Unix time stamp in seconds (s)."""
-    created_at: Optional[int]
+    created_at: Optional[int] = None
     """Document Name."""
-    file_name: Optional[str]
+    file_name: Optional[str] = None
 
 
 class ResponseDetail(CozeModel):
@@ -51,7 +51,7 @@ API Client for files endpoints
 """
 
 
-class Client(object):
+class FilesClient(object):
     def __init__(self, base_url: str, auth: Auth, requester: Requester):
         self._base_url = remove_url_trailing_slash(base_url)
         self._auth = auth
@@ -92,7 +92,13 @@ Local files cannot be directly used in messages. Before creating a message or co
 * Files uploaded to Coze can only be viewed or used by the account that uploaded them.
 * Files must be uploaded using the `multipart/form-data` method.
 * Files uploaded using the API expire after 3 months.
-    :param file: 
+    :param file: Supported file formats for upload:
+Documents: DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, Numbers, CSV
+Images: JPG, JPG2, PNG, GIF, WEBP, HEIC, HEIF, BMP, PCD, TIFF
+File upload size limit: Each file is a maximum of 512 MB.
+Files uploaded to the platform are for viewing or use by this account only.
+Files must be uploaded using the multipart/form-data method.
+Files uploaded using the API expire after 3 months. 
     :return: 
     """
 
@@ -117,7 +123,7 @@ Async API Client for files endpoints
 """
 
 
-class AsyncClient(object):
+class AsyncFilesClient(object):
     def __init__(self, base_url: str, auth: Auth, requester: Requester):
         self._base_url = remove_url_trailing_slash(base_url)
         self._auth = auth
@@ -158,7 +164,13 @@ Local files cannot be directly used in messages. Before creating a message or co
 * Files uploaded to Coze can only be viewed or used by the account that uploaded them.
 * Files must be uploaded using the `multipart/form-data` method.
 * Files uploaded using the API expire after 3 months.
-    :param file: 
+    :param file: Supported file formats for upload:
+Documents: DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, Numbers, CSV
+Images: JPG, JPG2, PNG, GIF, WEBP, HEIC, HEIF, BMP, PCD, TIFF
+File upload size limit: Each file is a maximum of 512 MB.
+Files uploaded to the platform are for viewing or use by this account only.
+Files must be uploaded using the multipart/form-data method.
+Files uploaded using the API expire after 3 months. 
     :return: 
     """
 
